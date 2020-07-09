@@ -1,0 +1,17 @@
+{
+  "name": "@iannisz/logger",
+  "version": "0.0.7",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Iannis de Zwart",
+  "license": "ISC",
+  "dependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^14.0.19",
+    "chalk": "^4.1.0"
+  }
+}
