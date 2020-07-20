@@ -1,4 +1,4 @@
-import { WorkerData } from './index'
+import { WorkerData, LogLevel } from './index'
 import { parentPort, workerData } from 'worker_threads'
 import * as chalk from 'chalk'
 import * as fs from 'fs'
@@ -35,8 +35,8 @@ const logPrefixMap = new Map([
 
 parentPort.on('message', (
 	input: {
-		level: 'i' | 'w' | 'e',
-		message: string
+		level: LogLevel,
+		message: string | Error
 	} | 'exit'
 ) => {
 	if (input == 'exit') {
@@ -44,6 +44,12 @@ parentPort.on('message', (
 	} else {
 		const prefix = logPrefixMap.get(input.level)
 		const timestamp = getTimestamp()
+
+		if (input.message instanceof Error) {
+			// Log the stack as well
+
+			input.message = input.message.stack
+		}
 	
 		const line = `${ prefix } [ ${ timestamp } ]: ${ input.message }`
 	
