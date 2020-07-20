@@ -5,6 +5,8 @@ export interface WorkerData {
 	file?: string
 }
 
+type LogLevel = 'i' | 'w' | 'e'
+
 let worker: Worker
 
 export const startLogger = (data: WorkerData) => {
@@ -19,6 +21,6 @@ export const stopLogger = () => new Promise(resolve => {
 	worker.postMessage('exit')
 })
 
-export const log = async (level: 'i' | 'w' | 'e', message: string) => {
+export const log = async (level: LogLevel, message: string) => {
 	worker.postMessage({ level, message })
 }
